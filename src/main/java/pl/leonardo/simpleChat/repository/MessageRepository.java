@@ -23,7 +23,9 @@ public class MessageRepository {
     public void updateMessage(long id, Message message){
         int ID = findMessageIndexById(id);
         if(ID != -1){
-            messages.get(ID).setId(message.getId());
+            if(findMessageIndexById(message.getId()) == -1) {
+                messages.get(ID).setId(message.getId());
+            }
             messages.get(ID).setSend_to(message.getSend_to());
             messages.get(ID).setSent_by(message.getSent_by());
             messages.get(ID).setContent(message.getContent());
@@ -40,7 +42,7 @@ public class MessageRepository {
         int index=-1;
         for(Message mess : messages) {
             if(mess.getId() == id) {
-                index =  mess.getId().intValue();
+                index =  messages.indexOf(mess);
             }
         }
         return index;

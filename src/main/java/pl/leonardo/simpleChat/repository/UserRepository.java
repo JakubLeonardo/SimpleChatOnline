@@ -24,7 +24,9 @@ public class UserRepository {
     public void updateUser(long id, User user){
         int ID = findUserIndexById(id);
         if(ID != -1){
-            users.get(ID).setId(user.getId());
+            if(findUserIndexById(user.getId()) == -1) {
+                users.get(ID).setId(user.getId());
+            }
             users.get(ID).setNick(user.getNick());
         }
     }
@@ -39,7 +41,7 @@ public class UserRepository {
         int index=-1;
         for(User u : users) {
             if(u.getId() == id) {
-                index =  u.getId().intValue();
+                index =  users.indexOf(u);
             }
         }
         return index;
